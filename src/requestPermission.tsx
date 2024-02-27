@@ -18,6 +18,7 @@ import { HomePage } from './home.tsx';
 import { GetPermissionsPage } from './getPermissions.tsx'; 
 import { ModifyPermissionPage } from './modifyPermission.tsx'; 
 import { RemovePermissionPage } from './removePermission.tsx'; 
+import { BACKEND_SERVER } from './config.js';
 
 export const RequestPermissionPage = () => {
   const [data, setData] = useState({
@@ -35,7 +36,7 @@ export const RequestPermissionPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/permiso/requestpermission', data);
+      const response = await axios.post(`${BACKEND_SERVER}/api/permiso/requestpermission`, data);
       console.log('Permiso solicitado:', response.data);
       toastr.success('Solicitud de permiso enviada correctamente', '', {
         positionClass: 'toast-bottom-right',
@@ -121,7 +122,12 @@ export const RequestPermissionPage = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained">Solicitar Permiso</Button>
+                <Button 
+                    style={{
+                      backgroundColor: '#48918b',
+                      color: '#1b1d19',
+                    }}                
+                type="submit" variant="contained">Solicitar Permiso</Button>
               </Grid>
             </Grid>
           </form>        

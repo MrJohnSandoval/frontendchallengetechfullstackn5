@@ -12,6 +12,7 @@ import { ModifyPermissionPage } from './modifyPermission.tsx';
 import { RemovePermissionPage } from './removePermission.tsx'; 
 import { AboutPage } from './about.tsx'; 
 import Cookies from 'js-cookie';
+import { BACKEND_SERVER } from './config.js';
 
 export const HomePage = () => {
 
@@ -62,19 +63,19 @@ export const HomePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();    
     try {
-      const response = await axios.post('http://localhost:8080/api/permiso/basicauthentication', data);
+      const response = await axios.post(`${BACKEND_SERVER}/api/permiso/basicauthentication`, data);
       console.log('Acceso solicitado:', response.data.user);
       toastr.success('Solicitud de acceso enviada correctamente ', '', {
         positionClass: 'toast-bottom-right',
       });      
       handleLogin();      
-    } catch (error) {
-      console.error('Error al solicitar acceso:', error);
-      toastr.error('Error al enviar la solicitud de acceso ', error, {
+    } catch (error) {      
+      // Aquí puedes continuar intentando con más servidores si es necesario
+      toastr.error('Error al enviar la solicitud de acceso a todas las URL', '', {
         positionClass: 'toast-bottom-right',
       });
       handleLogout();
-    }
+      }              
   };  
 
   return (
@@ -83,14 +84,17 @@ export const HomePage = () => {
           <h1>
             Sistema de Permisos
             {isLoggedIn ? (
-              <><Typography style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', }}>Usuario: {Cookies.get('user_id')}</Typography><Button
-              variant="contained"
-              style={{
-                position: 'absolute',
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-              }}
+              <><Typography style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', }}>Usuario: {Cookies.get('user_id')}</Typography>
+              <Button
+                variant="contained"
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  backgroundColor: '#48918b',
+                  color: '#1b1d19',
+                }}
               onClick={handleLogout}
             >
               {buttonText}
@@ -115,9 +119,8 @@ export const HomePage = () => {
         onClose={handleClickWithOutURL}
         variant="persistent"
         anchor="left"        
-      >
-        <Box
-          sx={{
+      >        
+        <Box sx={{
             width: isDrawerOpen ? '240px' : '75px',
             backgroundColor: '#2a2b29',
             border: '0',            
@@ -214,7 +217,12 @@ export const HomePage = () => {
                     </Grid>             
 
                     <Grid item xs={12}>
-                      <Button type="submit" variant="contained">Ingresar</Button>
+                      <Button 
+                          style={{
+                            backgroundColor: '#48918b',
+                            color: '#1b1d19',
+                          }}
+                      type="submit" variant="contained">Ingresar</Button>
                     </Grid>
                   </Grid>
                 </form>

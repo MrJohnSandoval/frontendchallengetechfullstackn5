@@ -18,6 +18,7 @@ import { HomePage } from './home.tsx';
 import { RequestPermissionPage } from './requestPermission.tsx'; 
 import { ModifyPermissionPage } from './modifyPermission.tsx'; 
 import { RemovePermissionPage } from './removePermission.tsx'; 
+import { BACKEND_SERVER } from './config.js';
 
 export const GetPermissionsPage = () => {
   const [permissions, setPermissions] = useState([]);
@@ -44,7 +45,7 @@ interface Data {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/permiso/getpermissions');
+        const response = await axios.get(`${BACKEND_SERVER}/api/permiso/getpermissions`);
         setPermissions(response.data);
         setLoading(false);
       } catch (error) {

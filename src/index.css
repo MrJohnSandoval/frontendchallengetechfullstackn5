@@ -20,6 +20,8 @@ h1 {
   transform: translateY(-50%);
   line-height: 40px; 
   margin-top: -20px;
+  background-color: #48918b; /* Color de fondo */
+  color: #1b1d19; /* Color de texto */
 }
 
 code {

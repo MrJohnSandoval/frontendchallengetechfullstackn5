@@ -17,13 +17,14 @@ import {
 import { HomePage } from './home.tsx'; 
 import { GetPermissionsPage } from './getPermissions.tsx'; 
 import { ModifyPermissionPage } from './modifyPermission.tsx';
-import { RequestPermissionPage } from './requestPermission.tsx';  
+import { RequestPermissionPage } from './requestPermission.tsx'; 
+import { BACKEND_SERVER } from './config.js'; 
 
 export const RemovePermissionPage = () => {  
   const { id } = useParams();
   console.log(useParams());
-  const fullUrl = "http://localhost:8080/api/permiso/removepermission/" + id;
-  const queryId = "http://localhost:8080/api/Permiso/GetPermission/" + id;
+  const fullUrl = `${BACKEND_SERVER}/api/permiso/removepermission/` + id;
+  const queryId = `${BACKEND_SERVER}/api/Permiso/GetPermission/` + id;
   const navigate = useNavigate();
   
   interface Data {
@@ -154,7 +155,12 @@ export const RemovePermissionPage = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained">Remover Permiso</Button>
+                <Button 
+                  style={{
+                    backgroundColor: '#48918b',
+                    color: '#1b1d19',
+                  }}
+                   type="submit" variant="contained">Remover Permiso</Button>
               </Grid>
             </Grid>
           </form>
